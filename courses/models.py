@@ -15,3 +15,22 @@ class Course(UnlockedMixin,
     class Meta:
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
+
+
+class CoursesInFacilities(UnlockedMixin,
+                          models.Model):
+    course = models.ForeignKey("courses.Course",
+                               on_delete=models.PROTECT,
+                               verbose_name="Курс")
+
+    facility = models.ForeignKey("educational_facilities.EducationalFacility",
+                               on_delete=models.PROTECT,
+                               verbose_name="Образовательное учреждение")
+
+    def __str__(self):
+        return f"{self.facility} - {self.course}"
+
+
+    class Meta:
+        verbose_name = "Курс в образовательном учреждении"
+        verbose_name_plural = "Курсы в образовательных учреждениях"
