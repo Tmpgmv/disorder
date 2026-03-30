@@ -1,0 +1,108 @@
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block head %}
+<style>
+@page {
+  size: A4;
+  margin-left: 3cm;
+  margin-right: 1cm;
+  margin-top: 2cm;
+  margin-bottom: 2cm;
+}
+
+body { font-size: 12px; }
+
+.page-break {
+  page-break-after: always;
+}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<p class="text-center"><img src={{ facility.logo.url }} style="max-width: 100px" alt="logo"></p>
+<p class="text-center">{{ facility.superior_body_1 }}</p>
+<p class="text-center">{{ facility.superior_body_2 }}</p>
+<p class="text-center">{{ facility.formation_type }}</p>
+<p class="text-center">{{ facility.full_name }}</p>
+
+
+
+<table class="w-100">
+    <tr>
+        <td colspan="3">РАССМОТРЕНЫ И ОДОБРЕНЫ</td>
+        <td></td>
+        <td colspan="3" class="text-end">СОГЛАСОВАНО</td>
+    </tr>
+    <tr>
+        <td>на заседании П(Ц)К</td>
+        <td class="underline w-25"></td>
+        <td></td>
+
+        <td class="w-25px"></td>
+
+        <td class="text-end" colspan="3">Заместитель директора по УМР</td>
+    </tr>
+
+    <tr>
+        <td>Председатель</td>
+        <td class="underline w-25"></td>
+        <td>{{ facility.chairperson.get_abridged_name }}</td>
+
+        <td class="w-25px"></td>
+
+        <td>&nbsp;</td>
+        <td class="underline w-25"></td>
+        <td class="text-end">{{ facility.deputy_director.get_abridged_name }}</td>
+    </tr>
+
+    <tr>
+        <td>Протокол №</td>
+        <td class="underline w-25"></td>
+        <td>&nbsp;</td>
+
+        <td class="w-25px"></td>
+
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td colspan="3"><p>&quot;________&quot;____________________________{% now "Y" %} г.</p></td>
+
+
+        <td class="w-25px"></td>
+
+        <td colspan="3" class="text-end"><p>&quot;________&quot;____________________________{% now "Y" %} г.</p></td>
+
+    </tr>
+</table>
+
+
+
+
+<p class="text-center">ЭКЗАМЕНАЦИОННЫЕ МАТЕРИАЛЫ</p>
+<p class="text-center fw-bold">по {{ task.course.slug }} {{ task.course.title }}</p>
+<p class="text-center">ППССЗ по специальности СПО</p>
+<p class="text-center fw-bold">{{ task.course.profession.slug }} {{ task.course.profession.name }}</p>
+<p class="text-center fw-bold">{{ task.course.profession.major }}</p>
+
+<table class="w-100">
+    {% for author in task.taskauthor_set.all %}
+    <tr class="w-100">
+        <td class="author-position">Преподаватель</td>
+        <td class="underline"></td>
+        <td class="w-25">{{ author }}</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    {% endfor %}
+</table>
+
+<p class="text-center">г. Санкт-Петербург</p>
+<p class="text-center">{% now "Y" %} г.</p>
+
+{% endblock %}
