@@ -55,3 +55,11 @@ class ToBeDistortedMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class ArchiveMixin(models.Model):
+    archive = models.BooleanField(default=False,
+                                  verbose_name="Архив")
+
+    class Meta:
+        abstract = True

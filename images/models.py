@@ -3,7 +3,7 @@ from django.db import models
 
 from general.model_mixins import UnlockedMixin, DateTimeMixin, CommentMixin, TitleMixin, ToBeDistortedMixin
 from tasks.lib import get_task_path
-from tasks.mixins import TaskMixin
+from tasks.model_mixins import TaskMixin
 
 
 def task_image_path(instance, filename):

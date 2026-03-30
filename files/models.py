@@ -3,7 +3,7 @@ from django.db import models
 
 from general.model_mixins import DateTimeMixin, TitleMixin, UnlockedMixin, CommentMixin
 from tasks.lib import get_task_path
-from tasks.mixins import TaskMixin
+from tasks.model_mixins import TaskMixin
 
 
 def task_file_path(instance, filename):

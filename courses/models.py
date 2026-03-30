@@ -1,5 +1,7 @@
 from django.db import models
 
+from courses.model_mixins import CourseMixin
+from educational_facilities.model_mixins import EducationalFacilityMixin
 from general.model_mixins import DateTimeMixin, CommentMixin, TitleMixin, UnlockedMixin, SlugMixin
 
 
@@ -21,6 +23,8 @@ class Course(UnlockedMixin,
 
 
 class CoursesInFacilities(UnlockedMixin,
+                          CourseMixin,
+                          EducationalFacilityMixin,
                           models.Model):
     """
     Модель необходима для сведения воедино инфраструктурного
@@ -29,15 +33,6 @@ class CoursesInFacilities(UnlockedMixin,
     Это необходимо для подачи руководству образовательного учреждения
     сведений о необходимом оснащении кабинетов.
     """
-
-
-    course = models.ForeignKey("courses.Course",
-                               on_delete=models.PROTECT,
-                               verbose_name="Курс")
-
-    facility = models.ForeignKey("educational_facilities.EducationalFacility",
-                               on_delete=models.PROTECT,
-                               verbose_name="Образовательное учреждение")
 
     def __str__(self):
         return f"{self.facility} - {self.course}"

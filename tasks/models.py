@@ -1,7 +1,9 @@
 from django.db import models
 
-from general.model_mixins import DateTimeMixin, CommentMixin, TitleMixin, UnlockedMixin, SlugMixin, ToBeDistortedMixin
-from tasks.mixins import TaskMixin
+from courses.model_mixins import CourseMixin
+from general.model_mixins import DateTimeMixin, CommentMixin, TitleMixin, UnlockedMixin, SlugMixin, ToBeDistortedMixin, \
+    ArchiveMixin
+from tasks.model_mixins import TaskMixin
 
 
 class TaskGroup(UnlockedMixin,
@@ -15,12 +17,12 @@ class TaskGroup(UnlockedMixin,
 class Task(UnlockedMixin,
            SlugMixin,
            DateTimeMixin,
+           CourseMixin,
            CommentMixin,
            TitleMixin,
+           ArchiveMixin,
            models.Model):
-    course = models.ForeignKey("courses.Course",
-                               on_delete=models.PROTECT,
-                               verbose_name="Курс")
+
     group = models.ForeignKey(TaskGroup,
                               on_delete=models.PROTECT,
                               null=True,
@@ -38,8 +40,7 @@ class Task(UnlockedMixin,
                                verbose_name="Экзамен")
     inspection = models.BooleanField(default=False,
                                      verbose_name="Контрольная работа")
-    archive = models.BooleanField(default=False,
-                                  verbose_name="Архив")
+
 
     class Meta:
         verbose_name = "Задание"
