@@ -12,6 +12,9 @@ class Course(UnlockedMixin,
     profession = models.ForeignKey("professions.Profession",
                                    on_delete=models.PROTECT,
                                    verbose_name="Специальность")
+
+    instruction_on_room_preparation = models.TextField(verbose_name="Как оснастить кабинет")
+
     class Meta:
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
@@ -19,6 +22,15 @@ class Course(UnlockedMixin,
 
 class CoursesInFacilities(UnlockedMixin,
                           models.Model):
+    """
+    Модель необходима для сведения воедино инфраструктурного
+    листа по образовательному учреждению.
+
+    Это необходимо для подачи руководству образовательного учреждения
+    сведений о необходимом оснащении кабинетов.
+    """
+
+
     course = models.ForeignKey("courses.Course",
                                on_delete=models.PROTECT,
                                verbose_name="Курс")
@@ -34,3 +46,5 @@ class CoursesInFacilities(UnlockedMixin,
     class Meta:
         verbose_name = "Курс в образовательном учреждении"
         verbose_name_plural = "Курсы в образовательных учреждениях"
+
+

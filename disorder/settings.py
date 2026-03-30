@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'csv_files',
     'files',
     'images',
+    'infrastructure',
 ]
 
 MIDDLEWARE = [
